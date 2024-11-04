@@ -102,6 +102,8 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
+        env:
+          RESOLVE_S3: ""  # Ensure no resolve-s3 option is applied
 
   build-and-package:
     if: github.ref == 'refs/heads/main'
@@ -131,6 +133,8 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --region ${TESTING_REGION} \
             --output-template-file packaged-testing.yaml
+        env:
+          RESOLVE_S3: ""  # Ensure no resolve-s3 option is applied
 
       - uses: actions/upload-artifact@v4
         with:
@@ -152,6 +156,8 @@ jobs:
             --s3-bucket ${PROD_ARTIFACTS_BUCKET} \
             --region ${PROD_REGION} \
             --output-template-file packaged-prod.yaml
+        env:
+          RESOLVE_S3: ""  # Ensure no resolve-s3 option is applied
 
       - uses: actions/upload-artifact@v4
         with:
@@ -189,6 +195,8 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
+        env:
+          RESOLVE_S3: ""  # Ensure no resolve-s3 option is applied
 
   integration-test:
     if: github.ref == 'refs/heads/main'
@@ -233,3 +241,5 @@ jobs:
             --s3-bucket ${PROD_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${PROD_CLOUDFORMATION_EXECUTION_ROLE}
+        env:
+          RESOLVE_S3: ""  # Ensure no resolve-s3 option is applied
